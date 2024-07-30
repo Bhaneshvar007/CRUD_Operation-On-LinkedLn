@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="/edit.css">
+</head>
+
+<body>
+    <h2>Edit your profile</h2>
+    <div class="form-container">
+        <form action="/posts/<%= data.id %>?_method=PATCH" method="post">
+            <label for="userImg">User Image:</label>
+            <input type="text" id="userImg" name="userImg" placeholder="Image URL" value="<%= data.userImg %>">
+            
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your name" value="<%= data.username %>">
+            
+            <label for="profesion">Profession:</label>
+            <input type="text" id="profesion" name="profesion" placeholder="Profession" value="<%= data.profesion %>">
+            
+            <label for="connection">Connections:</label>
+            <input type="number" id="connection" name="connection" placeholder="Connections" value="<%= data.connection %>">
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

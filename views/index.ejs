@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Profile</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <div class="cover-photo"></div>
+            <div class="profile-info">
+                <img src="<%= data.userImg %>" alt="Profile Photo" class="profile-photo">
+                <button><a href="http://localhost:5000/main/editprofile">Edit Profile</a></button>
+                <h1 class="name"><%= data.username %></h1>
+                <p class="headline"><%= data.profesion %></p>
+                <p class="con">Connections: <strong><%= data.connection %></strong></p>
+            </div>
+        </header>
+
+        <section class="about-section">
+            <h2>About</h2>
+            <p>LinkedIn is a business and employment-focused social media platform that works through websites and mobile apps. It was launched on May 5, 2003, by Reid Hoffman and Eric Ly. Since December 2016...</p>
+        </section>
+
+        <section class="posts-section">
+            <div class="top">
+                <h2>See all posts</h2>
+                <div>
+                    <button id="newPostBtn">New Post</button>
+                    <button id="deleteAllPostsBtn" style="background-color: red;">Delete All Posts</button>
+                </div>
+            </div>
+            <hr>
+            <div id="newPostForm" style="display: none;">
+                <form action="/posts" method="post">
+                    <input type="text" name="imgUrl" placeholder="Image URL" required>
+                    <button type="submit">Add Post</button>
+                </form>
+            </div>
+            <div class="posts">
+                <% data.posts.forEach(post => { %>
+                    <div class="post">
+                        <img src="<%= post.img %>" alt="Post Image">
+                        <form action="/posts/<%= post.id %>?_method=DELETE" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                <% }); %>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.getElementById("newPostBtn").addEventListener("click", function() {
+            document.getElementById("newPostForm").style.display = "block";
+        });
+
+        document.getElementById("deleteAllPostsBtn").addEventListener("click", function() {
+            if (confirm("Are you sure you want to delete all posts?")) {
+                fetch('/posts', {
+                    method: 'DELETE'
+                }).then(() => location.reload());
+            }
+        });
+    </script>
+</body>
+
+</html>
